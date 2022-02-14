@@ -1,0 +1,4 @@
+[submodule "qmk_firmware"]
+	path = qmk_firmware
+	url = https://github.com/codeandsolder/qmk_firmware.git
+	branch = 3w6rev3
