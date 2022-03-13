@@ -1,11 +1,15 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM numbers_combo[] = {KC_H, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM numbers_combo_sym[] = {KC_AMPR, KC_CIRC, COMBO_END};
 const uint16_t PROGMEM vim_combo[] = {KC_H, KC_COMMA, KC_DOT, COMBO_END};
+const uint16_t PROGMEM vim_combo_sym[] = {KC_AMPR, KC_CIRC, KC_TILD, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(numbers_combo, TO(3)),
     COMBO(vim_combo, TO(4)), // keycodes with modifiers are possible too!
+    COMBO(numbers_combo_sym, TO(3)),
+    COMBO(vim_combo_sym, TO(4)), // keycodes with modifiers are possible too!
 };
 
 /* THIS FILE WAS GENERATED!
