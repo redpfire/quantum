@@ -1,15 +1,25 @@
 #include QMK_KEYBOARD_H
 
+enum combo_events {
+    NUM_LAYER,
+    NUM_LAYER_SYM,
+    VIM_LAYER,
+    VIM_LAYER_SYM,
+    KEYLOCK_CAPS,
+    COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
 const uint16_t PROGMEM numbers_combo[] = {KC_H, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM numbers_combo_sym[] = {KC_AMPR, KC_CIRC, COMBO_END};
 const uint16_t PROGMEM vim_combo[] = {KC_H, KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM vim_combo_sym[] = {KC_AMPR, KC_CIRC, KC_TILD, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(numbers_combo, TO(3)),
-    COMBO(vim_combo, TO(4)), // keycodes with modifiers are possible too!
-    COMBO(numbers_combo_sym, TO(3)),
-    COMBO(vim_combo_sym, TO(4)), // keycodes with modifiers are possible too!
+combo_t key_combos[] = {
+    [NUM_LAYER] = COMBO(numbers_combo, TO(3)),
+    [NUM_LAYER_SYM] = COMBO(numbers_combo_sym, TO(3)),
+    [VIM_LAYER] = COMBO(vim_combo_sym, TO(4)),
+    [VIM_LAYER_SYM] = COMBO(vim_combo, TO(4)),
 };
 
 /* THIS FILE WAS GENERATED!
