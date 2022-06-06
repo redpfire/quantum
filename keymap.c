@@ -24,6 +24,12 @@ combo_t key_combos[] = {
     [KEYLOCK_CAPS] = COMBO(keylock_combo, KC_CAPS),
 };
 
+enum custom_keycodes {
+    VIM_CW = SAFE_RANGE,
+    VIM_FMT,
+    VIM_QAE,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_MINS,
                  LALT_T(KC_A), RALT_T(KC_R), LSFT_T(KC_S), LCTL_T(KC_T), KC_G,
@@ -47,7 +53,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_1, KC_2, KC_3, KC_PAST, TO(0), TO(1), KC_TRNS, KC_TRNS,
                  KC_TRNS, KC_NO),
     [4] = LAYOUT(KC_NO, KC_1, KC_2, KC_3, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                 KC_NO, KC_LALT, KC_4, LSFT_T(KC_5), LCTL_T(KC_6), KC_0, KC_H,
-                 KC_J, KC_K, KC_L, KC_NO, KC_NO, KC_7, KC_8, KC_9, KC_NO, KC_NO,
-                 KC_NO, KC_NO, KC_NO, KC_NO, TO(0), KC_TRNS, KC_TRNS, KC_TRNS,
+                 VIM_FMT, KC_LALT, KC_4, LSFT_T(KC_5), LCTL_T(KC_6), KC_0, KC_H,
+                 KC_J, KC_K, KC_L, VIM_CW, KC_NO, KC_7, KC_8, KC_9, KC_NO, KC_NO,
+                 KC_NO, KC_NO, KC_NO, VIM_QAE, TO(0), KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_TRNS, KC_NO)};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!record->event.pressed)  return true;
+
+    switch (keycode) {
+        case VIM_CW:
+            SEND_STRING(":w\n");
+            break;
+
+        case VIM_QAE:
+            SEND_STRING(":qa!\n");
+            break;
+
+        case VIM_FMT:
+            SEND_STRING(":silent lua vim.lsp.buf.formatting()\n");
+            break;
+    }
+
+    return true;
+};
